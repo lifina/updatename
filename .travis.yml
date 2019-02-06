@@ -7,5 +7,5 @@ before_install:
     -in test-66d6599d8f1b.json.enc -out test-66d6599d8f1b.json -d
 deploy:
   provider: gae
-  keyfile: "..."
+  keyfile: test-66d6599d8f1b.json
   project: positive-apex-202905
