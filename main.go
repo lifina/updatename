@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
 	"cloud.google.com/go/pubsub"
@@ -12,13 +11,9 @@ import (
 	"google.golang.org/appengine/log"
 )
 
-func publish(ctx context.Context, topic Topic) (string, error) {
-	projectID := os.Getenv("PROJECT_ID")
-	if projectID == "" {
-		log.Errorf(ctx, "Missing project id")
-		return "", fmt.Errorf("Missing project id")
-	}
+const projectID = "positive-apex-202905"
 
+func publish(ctx context.Context, topic Topic) (string, error) {
 	client, err := pubsub.NewClient(ctx, projectID)
 	if err != nil {
 		log.Errorf(ctx, "Failed to create the pubsub client %v", err)
