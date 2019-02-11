@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"math"
 	"net/http"
 	"time"
 
@@ -22,7 +23,8 @@ func publish(ctx context.Context, topic Topic) (string, error) {
 
 	baseDate := time.Date(2019, 2, 1, 0, 0, 0, 0, time.Local)
 	now := time.Now()
-	d := now.Sub(baseDate).Hours() / 24
+	h := math.Trunc(now.Sub(baseDate).Hours())
+	d := int64(math.Ceil(h / 24))
 
 	t := client.TopicInProject(string(topic), projectID)
 	defer t.Stop()
