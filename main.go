@@ -24,9 +24,12 @@ func publish(ctx context.Context, topic Topic) (string, error) {
 	now := time.Now()
 	d := now.Sub(baseDate).Hours() / 24
 
-	result := client.TopicInProject(string(topic), projectID).Publish(ctx, &pubsub.Message{
+	t := client.TopicInProject(string(topic), projectID)
+	defer t.Stop()
+	result := t.Publish(ctx, &pubsub.Message{
 		Data: []byte(fmt.Sprintf("無職%d日目", d)),
 	})
+
 	id, err := result.Get(ctx)
 	if err != nil {
 		log.Errorf(ctx, "Failed to publish a message %v", err)
