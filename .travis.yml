@@ -6,6 +6,10 @@ before_install:
   - openssl aes-256-cbc -K $encrypted_765a85bb122d_key -iv $encrypted_765a85bb122d_iv
     -in test-66d6599d8f1b.json.enc -out test-66d6599d8f1b.json -d
 deploy:
-  provider: gae
+  - provider: gae
   keyfile: test-66d6599d8f1b.json
   project: positive-apex-202905
+  - provider: gae
+  keyfile: test-66d6599d8f1b.json
+  project: positive-apex-202905
+  config: cron.yaml
