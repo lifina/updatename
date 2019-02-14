@@ -23,6 +23,7 @@ func publish(ctx context.Context, topic Topic) error {
 
 	baseDate := time.Date(2019, 2, 1, 0, 0, 0, 0, time.Local)
 	now := time.Now()
+	log.Debugf(ctx, "Now: %v", fmt.Sprint(now))
 	h := math.Trunc(now.Sub(baseDate).Hours())
 	d := int64(math.Ceil(h / 24))
 	message := fmt.Sprintf("無職%d日目", d)
