@@ -14,6 +14,8 @@ import (
 
 const projectID = "positive-apex-202905"
 
+var jst = time.FixedZone("Asia/Tokyo", 9*60*60)
+
 func publish(ctx context.Context, topic Topic) error {
 	client, err := pubsub.NewClient(ctx, projectID)
 	if err != nil {
@@ -21,8 +23,9 @@ func publish(ctx context.Context, topic Topic) error {
 		return err
 	}
 
-	baseDate := time.Date(2019, 2, 1, 0, 0, 0, 0, time.Local)
-	now := time.Now()
+	baseDate := time.Date(2019, 2, 1, 0, 0, 0, 0, jst)
+	log.Debugf(ctx, "Base: %v", fmt.Sprint(baseDate))
+	now := time.Now().In(jst)
 	log.Debugf(ctx, "Now: %v", fmt.Sprint(now))
 	h := math.Trunc(now.Sub(baseDate).Hours())
 	d := int64(math.Ceil(h / 24))
