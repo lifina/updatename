@@ -1,8 +1,1 @@
 cron:
-  - description: "update name"
-    retry_parameters:
-      min_backoff_seconds: 2.5
-      max_doublings: 5
-    schedule: every day 04:00
-    timezone: Asia/Tokyo
-    url: /publish?topic=update-name
